@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Form</title>
+</head>
+
+<style>
+    .student-form td{
+        border: solid black 1px;
+    }
+    #courses{
+        width: 100%;
+    }
+    #btnsave{
+        width: 100%;
+        background-color: lightgreen;
+        color: black;
+    }
+    .student-list{
+        border: 1px solid black;
+        margin-top: 30px;
+        font-weight: bold;
+    }
+    .student-list td {
+        padding: 5px;
+      }
+    table,
+      th {
+        padding: 5px;
+      }
+
+      td {
+        padding: 2px;
+      }
+      #deleteItem {
+        background-color: red;
+        color: white;
+        border: 1px solid black;
+        padding: 5px;
+      }
+</style>
+<body>
+  <center>
+    <h1>Student Form</h1>
+
+    <form id="myForm">
+        <table class="student-form">
+            <tr>
+                <td>Name :</td>
+                <td><input id="name" type="text" placeholder="Name" /></td>
+            </tr>
+            <tr>
+                <td>Age :</td>
+                <td>
+                  <input type="number" name="age" id="age" placeholder="Age" />
+                </td>
+              </tr>
+              <tr>
+                <td>Gender :</td>
+                <td>
+                  <input
+                    type="radio"
+                    name="gender"
+                    id="gender"
+                    value="Male"
+                    id="male"
+                  />
+                  <label for="">Male</label>
+                  <input
+                    type="radio"
+                    name="gender"
+                    id="gender"
+                    value="Female"
+                    id="female"
+                  />
+                  <label for="">Female</label>
+                </td>
+              </tr>
+              <tr>
+                <td>Course :</td>
+                <td>
+                  <select name="" id="courses">
+                    <option value="">Javascript</option>
+                    <option value="">Phython</option>
+                    <option value="">Java</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td><input type="email" name="" id="email" placeholder="Email" /></td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <button id="btnsave" onclick="onSubmit()">Save</button>
+                </td>
+              </tr>
+        </table>
+    </form>
+
+    <table border="1" class="student-list">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Course</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+    </table>
+  </center>
+
+    
+
+    <script>
+        var studentName = document.getElementById("name"),
+          age = document.getElementById("age"),
+          email = document.getElementById("email"),
+          gender = document.getElementsByName("gender"),
+          course = document.getElementById("courses"),
+          studentTable = document.querySelector(".student-list");
+  
+        function onSubmit() {
+          const form = document.getElementById("myForm");
+          form.addEventListener("submit", (event) => {
+            event.preventDefault();
+          });
+  
+          var tr = document.createElement("tr"),
+            genderValue = gender[0].checked ? "Male" : "Female";
+          var columns = `
+                    <td>${studentName.value}</td>
+                    <td>${age.value}</td>
+                    <td>${course.options[course.selectedIndex].textContent}</td>
+                    <td>${genderValue}</td>
+                    <td>${email.value}</td>
+                <td><button id="deleteItem" onclick="deleteItem(event)">Delete</button></td>`;
+          tr.innerHTML = columns;
+          studentTable.append(tr);
+          form.reset();
+        }
+  
+        function deleteItem(event) {
+          event.target.parentElement.parentElement.remove();
+        }
+      </script>
+    
+</body>
+</html>
